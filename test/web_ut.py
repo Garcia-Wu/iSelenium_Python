@@ -16,14 +16,14 @@ class ISelenium(unittest.TestCase):
     def get_config(self):
         config = configparser.ConfigParser()
         # 读取home目录下的iselenium.ini配置文件（在命令行依次输入 'cd ~' ，'pwd' 可查看home目录。win系统可在Git Bash查看）
-        config.read(os.path.join(os.environ['HOME'], 'iselenium.ini'))
+        # config.read(os.path.join(os.environ['HOME'], 'iselenium.ini')) # 暂时不需要
         return config
 
     def tearDown(self):
         self.driver.quit()
 
     def setUp(self):
-        config = self.get_config()
+        # config = self.get_config()
 
         # 控制是否采用无界面形式运行自动化测试
         try:
@@ -37,9 +37,9 @@ class ISelenium(unittest.TestCase):
             print('使用无界面方式运行')
             chrome_options.add_argument("--headless")
 
-        print(f"driver路径为：{config.get('driver', 'chrome_driver')}")
-        driver_service = webdriver.ChromeService(executable_path=config.get('driver', 'chrome_driver'))
-        self.driver = webdriver.Chrome(options=chrome_options, service=driver_service)
+        # print(f"driver路径为：{config.get('driver', 'chrome_driver')}")
+        # driver_service = webdriver.ChromeService(executable_path=config.get('driver', 'chrome_driver'))
+        self.driver = webdriver.Chrome(options=chrome_options)
 
     @allure.story('Test key word 今日头条')
     def test_webui_1(self):
